@@ -4,37 +4,105 @@
 	<title>Liney And Anna</title>
 	<style type="text/css">
 	body{
+		background-image: url("images/Shoreline-Center.jpg");
+		background-repeat: no-repeat;
+		background-position: center;
 		background-color: black;
 		width: 800px;
 	}
+
+	a img {
+		height: 300px;
+		padding: 5px;
+	}
+
 	li {
 		color: white;
-		font-size: 1.5em;
-		margin-left: 5px;
+		font-size: 1.2em;		
 		list-style-type: none;
 	}
 	#content{
-		border: 5px double white;
+		background-color: black;
+		border: 5px double blue;
 		border-radius: 10px;
-		margin-left: 50%;
+		margin-left: 55%;
 		margin-top: 30px;
+		overflow: hidden;
 		padding: 5px;
-		width: 585px;
+		width: 440px;
 	}
-	img{
-		margin-left: 5px;
-	}
+	
 	</style>
 </head>
-<body>
+<body onload="switchImage('slideImg')">
 	
 	<div id="content">
 	<ul>
 		<li>4/23/16</li>
+		<li>Martin Luther King, Jr. Regional Shoreline</li>
 		<li>7250 Doolittle Dr</li>		
 		<li>Oakland, CA 94621</li>
 	</ul>
-	<a href="http://www.ebparks.org/activities/corpfamily/br/shoreline"><img src="images/shoreline.png" height="400px"></a>
+	<a href="http://www.ebparks.org/activities/corpfamily/br/shoreline"><img src="images/shoreline.png"></a>
 	</div>
+	<script type="text/javascript">
+		/* http://www.webmonkey.com/2010/02/make_a_javascript_slideshow/ */
+		var interval = 1500;
+		var random_display = 0;
+		var imageDir = "images/shoreline/";
+		var imageNum = 0;
+		imageArray = new Array();
+		imageArray[imageNum++] = new imageItem(imageDir + "shoreline1.jpg");
+		imageArray[imageNum++] = new imageItem(imageDir + "shoreline2.jpg");
+		imageArray[imageNum++] = new imageItem(imageDir + "shoreline3.jpg");
+		imageArray[imageNum++] = new imageItem(imageDir + "shoreline4.jpg");
+		imageArray[imageNum++] = new imageItem(imageDir + "shoreline5.jpg");
+		imageArray[imageNum++] = new imageItem(imageDir + "shoreline6.jpg");
+		imageArray[imageNum++] = new imageItem(imageDir + "shoreline7.jpg");
+
+		var totalImages = imageArray.length;
+		function imageItem(image_location){
+			this.image_item = new Image();
+			this.image_item.src = image_location;
+		}
+
+		function get_ImageItemLocation(imageObj){
+			return(imageObj.image_item.src);
+		}
+
+		function randNum(x,y){
+			var range = y - x + 1;
+			return Math.floor(Math.random() * range) + x;
+		}
+
+		function getNextImage(){
+			if (random_display){
+				imageNum = randNum(0, totalImages - 1);
+			}
+			else{
+				imageNum = (imageNum+1) % totalImages;
+			}
+		var new_image = get_ImageItemLocation(imageArray[imageNum]);
+		return(new_image);
+		}
+
+		function getPrevImage(){
+			imageNum = (imageNum + 1) % totalImages;
+			var new_image = get_ImageItemLocation(imageArray[imageNum]);
+			return(new_image);
+		}
+
+		function prevImage(place){
+			var new_image = getPrevImage();
+			document[place].src = new_image;
+		}
+
+		function switchImage(place){
+			var new_image = getNextImage();
+			document[place].src = new_image;
+			var recur_call = "switchImage('"+place+"')";
+			timerID = setTimeout(recur_call, interval);
+		}
+	</script>
 </body>
 </html>

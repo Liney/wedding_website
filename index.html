@@ -94,12 +94,12 @@
 
 		function prevImage(place){
 			var new_image = getPrevImage();
-			document[place].src = new_image;
+			document.getElementById('slideImg') = new_image;
 		}
 
 		function switchImage(place){
 			var new_image = getNextImage();
-			document[place].src = new_image;
+			document.getElementById('slideImg').new_image;
 			var recur_call = "switchImage('"+place+"')";
 			timerID = setTimeout(recur_call, interval);
 		}

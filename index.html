@@ -4,7 +4,7 @@
 	<title>Liney And Anna</title>
 	<style type="text/css">
 	body{
-		background-image: url("images/Shoreline/shoreline1.jpg");
+		
 		background-repeat: no-repeat;
 		background-position: center;
 		background-color: black;
@@ -79,8 +79,8 @@
 		}
 
 		function switchImage(place) {
-			var body = document.getElementsByTagName('body')[0];
-		    body.style.backgroundImage = getNextImage();
+			var target = document.getElementById(place);
+		    target.style.backgroundImage = getNextImage();
 		    setTimeout(function() {
 		        switchImage(place);
 		    }, interval);

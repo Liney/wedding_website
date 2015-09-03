@@ -4,7 +4,7 @@
 	<title>Liney And Anna</title>
 	<style type="text/css">
 	body{
-		background-image: url("images/Shoreline-Center.jpg");
+		background-image: url("images/Shoreline/shoreline1.jpg");
 		background-repeat: no-repeat;
 		background-position: center;
 		background-color: black;
@@ -34,7 +34,7 @@
 	
 	</style>
 </head>
-<body onload="switchImage('slideImg')">
+<body id="imgSwitch">
 	
 	<div id="content">
 	<ul>
@@ -46,63 +46,48 @@
 	<a href="http://www.ebparks.org/activities/corpfamily/br/shoreline"><img src="images/shoreline.png"></a>
 	</div>
 	<script type="text/javascript">
-		/* http://www.webmonkey.com/2010/02/make_a_javascript_slideshow/ */
-		var interval = 1500;
-		var random_display = 0;
-		var imageDir = "images/shoreline/";
-		var imageNum = 0;
-		imageArray = new Array();
-		imageArray[imageNum++] = new imageItem(imageDir + "shoreline1.jpg");
-		imageArray[imageNum++] = new imageItem(imageDir + "shoreline2.jpg");
-		imageArray[imageNum++] = new imageItem(imageDir + "shoreline3.jpg");
-		imageArray[imageNum++] = new imageItem(imageDir + "shoreline4.jpg");
-		imageArray[imageNum++] = new imageItem(imageDir + "shoreline5.jpg");
-		imageArray[imageNum++] = new imageItem(imageDir + "shoreline6.jpg");
-		imageArray[imageNum++] = new imageItem(imageDir + "shoreline7.jpg");
+		var interval = 1.5; // delay between rotating images (in seconds)
+		var random_display = 0; // 0 = no, 1 = yes
+		interval *= 1000;
 
-		var totalImages = imageArray.length;
-		function imageItem(image_location){
-			this.image_item = new Image();
-			this.image_item.src = image_location;
+		var image_list = [
+		  "images/shoreline/shoreline1.jpg",
+		  "images/shoreline/shoreline2.jpg",
+		  "images/shoreline/shoreline3.jpg",
+		  "images/shoreline/shoreline4.jpg",
+		  "images/shoreline/shoreline5.jpg",
+		  "images/shoreline/shoreline6.jpg",
+		  "images/shoreline/shoreline7.jpg"		  
+		];
+
+		var image_index     = image_list.length;
+		var number_of_image = image_list.length;
+
+		function generate(x, y) {
+		    var range = y - x + 1;
+		    return Math.floor(Math.random() * range) + x;
 		}
 
-		function get_ImageItemLocation(imageObj){
-			return(imageObj.image_item.src);
+		function getNextImage() {
+		    if (random_display) {
+		        image_index = generate(0, number_of_image - 1);
+		    }
+		    else {
+		        image_index = (image_index + 1) % number_of_image;
+		    }
+		    return image_list[image_index];
 		}
 
-		function randNum(x,y){
-			var range = y - x + 1;
-			return Math.floor(Math.random() * range) + x;
+		function switchImage(place) {
+			var body = document.getElementsByTagName('body')[0];
+		    body.style.backgroundImage = getNextImage();
+		    setTimeout(function() {
+		        switchImage(place);
+		    }, interval);
 		}
 
-		function getNextImage(){
-			if (random_display){
-				imageNum = randNum(0, totalImages - 1);
-			}
-			else{
-				imageNum = (imageNum+1) % totalImages;
-			}
-		var new_image = get_ImageItemLocation(imageArray[imageNum]);
-		return(new_image);
-		}
-
-		function getPrevImage(){
-			imageNum = (imageNum + 1) % totalImages;
-			var new_image = get_ImageItemLocation(imageArray[imageNum]);
-			return(new_image);
-		}
-
-		function prevImage(place){
-			var new_image = getPrevImage();
-			document.getElementById('slideImg') = new_image;
-		}
-
-		function switchImage(place){
-			var new_image = getNextImage();
-			document.getElementById('slideImg').new_image;
-			var recur_call = "switchImage('"+place+"')";
-			timerID = setTimeout(recur_call, interval);
-		}
+		// START SWITCH (with the id)
+		switchImage("imgSwitch");
 	</script>
 </body>
 </html>

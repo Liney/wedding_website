@@ -4,9 +4,9 @@
 	<title>Liney And Anna</title>
 	<style type="text/css">
 	body{
-		
+		background-size: 800px 600px;
 		background-repeat: no-repeat;
-		background-position: center;
+		background-position: left 300px center; 
 		background-color: black;
 		width: 800px;
 	}
@@ -48,7 +48,7 @@
 	<script type="text/javascript">
 		var interval = 1.5; // delay between rotating images (in seconds)
 		var random_display = 0; // 0 = no, 1 = yes
-		interval *= 1000;
+		interval *= 3000;
 
 		var image_list = [
 		  "images/shoreline/shoreline1.jpg",
@@ -79,8 +79,8 @@
 		}
 
 		function switchImage(place) {
-			var target = document.getElementById(place);
-		    target.style.backgroundImage = getNextImage();
+			/* var target = document.getElementById(place); */
+		    document.body.style.backgroundImage = "url(" + getNextImage() + ")";
 		    setTimeout(function() {
 		        switchImage(place);
 		    }, interval);
